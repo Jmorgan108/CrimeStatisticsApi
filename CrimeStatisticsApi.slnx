@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="CrimeStatisticsApi.Tests/CrimeStatisticsApi.Tests.csproj" />
   <Project Path="CrimeStatisticsApi/CrimeStatisticsApi.csproj" />
 </Solution>
