@@ -15,8 +15,11 @@ namespace CrimeStatisticsByLongitudeAndLatitude.Services
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            
-            var crimes = JsonSerializer.Deserialize<List<Crime>>(content);
+           
+            var crimes = JsonSerializer.Deserialize<List<Crime>>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
 
             return crimes ?? new List<Crime>();
         }
