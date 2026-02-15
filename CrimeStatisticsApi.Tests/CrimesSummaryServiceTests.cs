@@ -67,7 +67,43 @@ namespace CrimeStatisticsApi.Tests
 
             //assert
             Assert.Empty(result);
-
         }
+
+        [Fact]
+        public void SummaryByCategory_HandlesSingleCategory()
+        {
+            //arrange
+            var crimes = new List<Crime>
+           {
+               new Crime { Category = "theft" },
+               new Crime { Category = "theft" },
+               new Crime { Category = "theft" },
+           };
+            //act
+            var result = _serviceTest.SummaryByCategories(crimes);
+            //assert
+            Assert.Single(result);
+            Assert.Equal("theft", result[0].Category);
+            Assert.Equal(3, result[0].Count);
+        }
+
+        [Fact]
+        public void SummaryByCategory_HandlesNullCategories()
+        {
+            //arrange
+            var crimes = new List<Crime>
+           {
+               new Crime { Category = null },
+               new Crime { Category = "theft" },
+               new Crime { Category = null },
+           };
+            //act
+            var result = _serviceTest.SummaryByCategories(crimes);
+            //assert
+            Assert.Equal(2, result.Count);
+            Assert.Contains(result, r => r.Category == null && r.Count == 2);
+            Assert.Contains(result, r => r.Category == "theft" && r.Count == 1);
+        }
+
     }
 }
