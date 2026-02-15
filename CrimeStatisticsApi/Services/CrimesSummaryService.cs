@@ -10,20 +10,12 @@ namespace CrimeStatisticsByLongitudeAndLatitude.Services
             return crimes.GroupBy(c => c.Category)
                          .Select(g => new CrimeSummary
                          {
-                             Category = FormatCategoryName(g.Key),
+                             Category = g.Key,
                              Count = g.Count()
                          })
                          .OrderByDescending(c => c.Count)
                          .ToList();
         }
 
-        private string FormatCategoryName(string category)
-        {
-            if (string.IsNullOrWhiteSpace(category))
-                return "Unknown";
-
-            return string.Join(" ", category.Split('-')
-                .Select(word => char.ToUpper(word[0]) + word.Substring(1)));
-        }
     }
 }
